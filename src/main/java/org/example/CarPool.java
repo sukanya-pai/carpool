@@ -1,13 +1,14 @@
 package org.example;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class CarPool {
 
@@ -48,7 +49,6 @@ public class CarPool {
         return list;
     }
 
-
     public Car addCar(Car car) {
         cars.add(car);
         return car;
@@ -58,8 +58,17 @@ public class CarPool {
     public Car getCar(String id) {
         Car car = null;
         for (int i = 0; i < cars.size(); i++) {
-            if (id == ((Car) cars.get(i)).id) {
+            /**
+             * FIRST MISTAKE: ==
+             * SOLUTION: Replace with .equals()
+             * OPTIMISATION: We can add break inside if block
+             * to avoid going through rest of the list once car
+             * has been found.
+             */
+//            if (id == ((Car) cars.get(i)).id) {
+            if (id.equals(((Car) cars.get(i)).id)) {
                 car = (Car) cars.get(i);
+                break;
             }
         }
         return car;
@@ -76,6 +85,8 @@ public class CarPool {
             Car car = (Car) carObj;
             if (id.equals(car.id)) {
                 cars.remove(car);
+                //added break to stop removal process- to avoid  concurrentObjectModification Exception
+                break;
             }
         }
     }
@@ -85,19 +96,29 @@ public class CarPool {
         Car car = getCar(id);
 
         String color = null;
+        /**
+         * SECOND MISTAKE: Always returning default color
+         * SOLUTION: add break in switch structure
+         */
         switch (car.color) {
             case "red":
                 color = "FF0000";
+                break;
             case "black":
                 color = "000000";
+                break;
             case "green":
                 color = "00FF00";
+                break;
             case "blue":
                 color = "0000FF";
+                break;
             case "yellow":
                 color = "FFFF00";
+                 break;
             case "gray":
                 color = "BEBEBE";
+                break;
             default:
                 color = "unknown color";
         }
