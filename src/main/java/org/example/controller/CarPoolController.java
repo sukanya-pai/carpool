@@ -16,8 +16,16 @@ import java.util.ArrayList;
 @RequestMapping("carpool")
 public class CarPoolController {
 
+    // There is scope here for autowiring the car pool dependency and
+    // function to load cars can be added as part of application startup
     CarPoolService carPoolService = new CarPoolService();
 
+    /**
+     * API to add new car to the car pool
+     * @param car
+     * @return Car added object and status as OK if car is added successfully
+     * If car with id exists, return the error message with status  code 500
+     */
     @PostMapping("/car/add")
     @ResponseBody
     public ResponseEntity<?> add(@RequestBody Car car) {
@@ -29,6 +37,12 @@ public class CarPoolController {
         }
     }
 
+    /**
+     * API to get car of given ID
+     * @param id
+     * @return If car is found for given ID, return the car object
+     * Else return car not found message
+     */
     @GetMapping("/car/get")
     @ResponseBody
     public ResponseEntity<?> get(@RequestParam(name = "id") String id) {
@@ -40,6 +54,12 @@ public class CarPoolController {
         }
     }
 
+    /**
+     * API to return color in RGB format of a given car
+     * @param id
+     * @return If car with id is found, return the RGB equivalent color, else return car not found
+     * If color does not have RGB equivalent value, unknown color is returned
+     */
     @GetMapping("/car/get/color")
     @ResponseBody
     public ResponseEntity getRGBColor(@RequestParam(name = "id") String id) {
@@ -51,6 +71,10 @@ public class CarPoolController {
         }
     }
 
+    /**
+     * API to return list of all cars available in carpool
+     * @return
+     */
     @GetMapping("/car/get/all")
     @ResponseBody
     public ResponseEntity<?> getAll() {
@@ -62,6 +86,11 @@ public class CarPoolController {
         }
     }
 
+    /**
+     * API to delete car from a car pool
+     * @param id
+     * @return Return success message if deleted successfully, else return error message.
+     */
     @DeleteMapping("/car/delete")
     @ResponseBody
     public ResponseEntity<?> delete(@RequestParam(name = "id") String id) {

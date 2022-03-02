@@ -10,6 +10,8 @@ PUT is used for updating resources.
 - While loading objects from JSON, given logic used Pattern Matchers to get the data. This causes tight coupling and hard coding which forces developers to change the code logic if new attributes of cars are added.
   - Made changes to get the JSON objects as list without need for Pattern Matchers by making use of org.json library.
 - While String comparison, we have to use .equals() method to compare contents of the variables accurately.
+  - In get car for a given ID, there was == comparison which was not matching any of the ids and hence car details were not returned successfully.
+  - Fixing it with .equals, solved the issue.
 - While using switch statements, for different cases we have to use break, else the default case will be executed always.
   - Alternately, we can use a hashmap of color as key and RGB equivalent representation of the color as value to create a lookup datastructure.
   - Instead of switch, if we use hashmap.get(color), it should return the RGB value.
@@ -21,7 +23,7 @@ PUT is used for updating resources.
   - The name of the class should be "<ServiceClass>Test" as part of general convention 
   - The name of test methods should be meaningful and define what the purpose of the test case is.
 - Proper variable naming conventions has to be followed in test and the source classes.
-
+- Appropriate Java Doc and inline comments have to be used on the methods to ensure that code is more readable.
 ## Notes
 - Created controller package and CarPoolController.java for updating the controller file code.
 - Created service package and CarPoolService.java
@@ -30,5 +32,6 @@ PUT is used for updating resources.
 - Added validators for checking if id exists or not during addition of cars and deletion and while getting the car details.
 - Created mapper package and created ObjectToCarMapper class that has one function of converting object to Car. This class has been autowired to CarPoolService to demo the concept of dependency injection.
 - Added Getters and setters in the Car class to access or update parameters.
+- Added Java doc comments for all methods created newly.
 - Created service package inside test/java folder and created CarPoolServiceTest class
   - Wrote success and failure test cases for add new car scenario.
