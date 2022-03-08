@@ -25,6 +25,7 @@ PUT is used for updating resources.
 - Proper variable naming conventions has to be followed in test and the source classes.
 - Appropriate Java Doc and inline comments have to be used on the methods to ensure that code is more readable.
 ## Notes
+- Created config package and added ApplicationConfig and CarPoolConfig classes to load the cars when the server is started instead of loading it in the CarPoolService constructor.
 - Created controller package and CarPoolController.java for updating the controller file code.
 - Created service package and CarPoolService.java
 - Created exception package and within that 2 classes - CarAlreadyExistsException and CarNotFoundException
