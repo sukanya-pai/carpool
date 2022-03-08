@@ -1,9 +1,11 @@
 package org.example.mapper;
 
 import org.example.Car;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 
+@Component
 public class ObjectToCarMapper {
 
     public Car convertToCarObject(HashMap carMap){

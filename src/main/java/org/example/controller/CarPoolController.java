@@ -4,6 +4,7 @@ import org.example.Car;
 import org.example.exception.CarAlreadyExistsException;
 import org.example.exception.CarNotFoundException;
 import org.example.service.CarPoolService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,9 @@ import java.util.ArrayList;
 @RequestMapping("carpool")
 public class CarPoolController {
 
-    // There is scope here for autowiring the car pool dependency and
-    // function to load cars can be added as part of application startup
-    CarPoolService carPoolService = new CarPoolService();
+    // Removed tight coupling and autowired the dependencies
+    @Autowired
+    CarPoolService carPoolService;
 
     /**
      * API to add new car to the car pool

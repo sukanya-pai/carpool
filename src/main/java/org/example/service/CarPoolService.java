@@ -8,51 +8,20 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+@Service
 public class CarPoolService {
-
-    ArrayList cars;
 
     //Autowiring dependency
     @Autowired
-    private ObjectToCarMapper objectToCarMapper;
-
-    public CarPoolService() {
-        this.cars = loadList();
-    }
-
-    /**
-     * Loading data from JSON file to POJO Object - too much hardcoding
-     * If new parameters are added, we have to change the code
-     * notes attribute was displayed incorrectly in getAll or get car API
-     *
-     * SOLUTION: Make use of org.json library to parse the list of objects
-     * @return
-     */
-    public ArrayList<Car> loadList(){
-        //JSON parser object to parse read file
-        JSONParser jsonParser = new JSONParser();
-        ArrayList<Car> carList =new ArrayList<>();
-        try (FileReader reader = new FileReader("src/main/java/carpool.json"))
-        {
-            //Read JSON file
-            Object carsObj = jsonParser.parse(reader);
-            JSONArray carsArr = (JSONArray) carsObj;
-
-            for (Object carObj: carsArr){
-                HashMap<String,String> carMap = (HashMap<String, String>)carObj;
-                carList.add(objectToCarMapper.convertToCarObject(carMap));
-            }
-        } catch ( IOException|ParseException  e) {
-            e.printStackTrace();
-        }
-        return carList;
-    }
+    ArrayList<Car> cars;
 
     /**
      * Method to add new car to carpool.
